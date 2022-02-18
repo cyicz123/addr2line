@@ -387,69 +387,6 @@ int main(int argc, char **argv)
   file_name = NULL;
   section_name = NULL;
   target = NULL;
-  while ((c = getopt_long(argc, argv, "ab:Ce:rRsfHhij:pVv", long_options, (int *)0)) != EOF)
-  {
-    switch (c)
-    {
-    case 0:
-      break; /* We've been given a long option.  */
-    case 'a':
-      with_addresses = true;
-      break;
-    case 'b':
-      target = optarg;
-      break;
-    case 'C':
-      do_demangle = true;
-      if (optarg != NULL)
-      {
-        enum demangling_styles style;
-
-        style = cplus_demangle_name_to_style(optarg);
-        if (style == unknown_demangling)
-          fatal(_("unknown demangling style `%s'"),
-                optarg);
-
-        cplus_demangle_set_style(style);
-      }
-      break;
-    case 'r':
-      demangle_flags |= DMGL_NO_RECURSE_LIMIT;
-      break;
-    case 'R':
-      demangle_flags &= ~DMGL_NO_RECURSE_LIMIT;
-      break;
-    case 'e':
-      file_name = optarg;
-      break;
-    case 's':
-      base_names = true;
-      break;
-    case 'f':
-      with_functions = true;
-      break;
-    case 'p':
-      pretty_print = true;
-      break;
-    case 'v':
-    case 'V':
-      print_version("addr2line");
-      break;
-    case 'h':
-    case 'H':
-      usage(stdout, 0);
-      break;
-    case 'i':
-      unwind_inlines = true;
-      break;
-    case 'j':
-      section_name = optarg;
-      break;
-    default:
-      usage(stderr, 1);
-      break;
-    }
-  }
 
   if (file_name == NULL)
     file_name = "a.out";
