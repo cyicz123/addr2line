@@ -50,61 +50,10 @@ static int demangle_flags = DMGL_PARAMS | DMGL_ANSI;
 static int naddr;   /* Number of addresses to process.  */
 static char **addr; /* Hex addresses to process.  */
 
-static asymbol **syms; /* Symbol table.  */
-
-        {"addresses", no_argument, NULL, 'a'},
-        {"basenames", no_argument, NULL, 's'},
-        {"demangle", optional_argument, NULL, 'C'},
-        {"exe", required_argument, NULL, 'e'},
-        {"functions", no_argument, NULL, 'f'},
-        {"inlines", no_argument, NULL, 'i'},
-        {"pretty-print", no_argument, NULL, 'p'},
-        {"recurse-limit", no_argument, NULL, 'R'},
-        {"recursion-limit", no_argument, NULL, 'R'},
-        {"no-recurse-limit", no_argument, NULL, 'r'},
-        {"no-recursion-limit", no_argument, NULL, 'r'},
-        {"section", required_argument, NULL, 'j'},
-        {"target", required_argument, NULL, 'b'},
-        {"help", no_argument, NULL, 'H'},
-        {"version", no_argument, NULL, 'V'},
-        {0, no_argument, 0, 0}};
-
-static void usage(FILE *, int);
 static void slurp_symtab(bfd *);
 static void find_address_in_section(bfd *, asection *, void *);
 static void find_offset_in_section(bfd *, asection *);
 static void translate_addresses(bfd *, asection *);
-
-/* Print a usage message to STREAM and exit with STATUS.  */
-
-static void
-usage(FILE *stream, int status)
-{
-  fprintf(stream, _("Usage: %s [option(s)] [addr(s)]\n"), program_name);
-  fprintf(stream, _(" Convert addresses into line number/file name pairs.\n"));
-  fprintf(stream, _(" If no addresses are specified on the command line, they will be read from stdin\n"));
-  fprintf(stream, _(" The options are:\n\
-  @<file>                Read options from <file>\n\
-  -a --addresses         Show addresses\n\
-  -b --target=<bfdname>  Set the binary file format\n\
-  -e --exe=<executable>  Set the input file name (default is a.out)\n\
-  -i --inlines           Unwind inlined functions\n\
-  -j --section=<name>    Read section-relative offsets instead of addresses\n\
-  -p --pretty-print      Make the output easier to read for humans\n\
-  -s --basenames         Strip directory names\n\
-  -f --functions         Show function names\n\
-  -C --demangle[=style]  Demangle function names\n\
-  -R --recurse-limit     Enable a limit on recursion whilst demangling.  [Default]\n\
-  -r --no-recurse-limit  Disable a limit on recursion whilst demangling\n\
-  -h --help              Display this information\n\
-  -v --version           Display the program's version\n\
-\n"));
-
-  list_supported_targets(program_name, stream);
-  if (REPORT_BUGS_TO[0] && status == 0)
-    fprintf(stream, _("Report bugs to %s\n"), REPORT_BUGS_TO);
-  exit(status);
-}
 
 /* Read in the symbol table.  */
 
