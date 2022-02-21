@@ -224,14 +224,7 @@ translate_addresses(bfd *abfd, asection *section)
           free(alloc);
         }
 
-        if (base_names && filename != NULL)
-        {
-          char *h;
-
-          h = strrchr(filename, '/');
-          if (h != NULL)
-            filename = h + 1;
-        }
+        
 
         printf("%s:", filename ? filename : "??");
         if (line != 0)
