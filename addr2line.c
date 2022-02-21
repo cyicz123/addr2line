@@ -163,16 +163,7 @@ translate_addresses(bfd *abfd, asection *section)
         pc = (pc ^ sign) - sign;
     }
 
-    if (with_addresses)
-    {
-      printf("0x");
-      bfd_printf_vma(abfd, pc);
-
-      if (pretty_print)
-        printf(": ");
-      else
-        printf("\n");
-    }
+    
 
     found = false;
     if (section)
