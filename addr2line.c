@@ -301,15 +301,15 @@ int main(int argc, char **argv)
     fatal(_("fatal error: libbfd ABI mismatch"));
   set_default_bfd_target();
 
-  file_name = NULL;
+  file_name = "bt";
   section_name = NULL;
   target = NULL;
 
   if (file_name == NULL)
     file_name = "a.out";
 
-  addr = argv + optind;
-  naddr = argc - optind;
+  addr[0] = "0400837";
+  naddr = 1;
 
   return process_file(file_name, section_name, target);
 }
