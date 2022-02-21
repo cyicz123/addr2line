@@ -186,37 +186,6 @@ translate_addresses(bfd *abfd, asection *section)
     {
       while (1)
       {
-        if (with_functions)
-        {
-          const char *name;
-          char *alloc = NULL;
-
-          name = functionname;
-          if (name == NULL || *name == '\0')
-            name = "??";
-          else if (do_demangle)
-          {
-            alloc = bfd_demangle(abfd, name, demangle_flags);
-            if (alloc != NULL)
-              name = alloc;
-          }
-
-          printf("%s", name);
-          if (pretty_print)
-            /* Note for translators:  This printf is used to join the
- *                function name just printed above to the line number/
- *                               file name pair that is about to be printed below.  Eg:
- *
- *                                                foo at 123:bar.c  */
-            printf(_(" at "));
-          else
-            printf("\n");
-
-          free(alloc);
-        }
-
-        
-
         printf("%s:", filename ? filename : "??");
         if (line != 0)
         {
