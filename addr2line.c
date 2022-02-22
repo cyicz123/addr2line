@@ -12,6 +12,7 @@ static int demangle_flags = DMGL_PARAMS | DMGL_ANSI;
 
 static int naddr;   /* Number of addresses to process.  */
 static char **addr; /* Hex addresses to process.  */
+static asymbol **syms; /* Symbol table.  */
 
 static void slurp_symtab(bfd *);
 static void find_address_in_section(bfd *, asection *, void *);
