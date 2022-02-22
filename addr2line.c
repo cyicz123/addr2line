@@ -1,6 +1,5 @@
 #include "sysdep.h"
 #include "bfd.h"
-#include "getopt.h"
 #include "libiberty.h"
 #include "demangle.h"
 #include "bucomm.h"
@@ -173,13 +172,6 @@ translate_addresses(bfd *abfd, asection *section)
 
     if (!found)
     {
-      if (with_functions)
-      {
-        if (pretty_print)
-          printf("?? ");
-        else
-          printf("??\n");
-      }
       printf("??:0\n");
     }
     else
