@@ -189,21 +189,21 @@ translate_addresses(bfd *abfd, asection *section)
         }
         else
           printf("?\n");
-        if (!unwind_inlines)
+        // if (!unwind_inlines)
           found = false;
-        else
-          found = bfd_find_inliner_info(abfd, &filename, &functionname,
-                                        &line);
+        // else
+        //   found = bfd_find_inliner_info(abfd, &filename, &functionname,
+        //                                 &line);
         if (!found)
           break;
-        if (pretty_print)
-          /* Note for translators: This printf is used to join the
- *              line number/file name pair that has just been printed with
- *                           the line number/file name pair that is going to be printed
- *                                        by the next iteration of the while loop.  Eg:
- *
- *                                                       123:bar.c (inlined by) 456:main.c  */
-          printf(_(" (inlined by) "));
+//         if (pretty_print)
+//           /* Note for translators: This printf is used to join the
+//  *              line number/file name pair that has just been printed with
+//  *                           the line number/file name pair that is going to be printed
+//  *                                        by the next iteration of the while loop.  Eg:
+//  *
+//  *                                                       123:bar.c (inlined by) 456:main.c  */
+//           printf(_(" (inlined by) "));
       }
     }
 
