@@ -40,7 +40,7 @@ slurp_symtab(bfd *abfd)
   if (storage < 0)
     bfd_fatal(bfd_get_filename(abfd));
 
-  syms = (asymbol **)xmalloc(storage);
+  syms = (asymbol **)malloc(storage);
   if (dynamic)
     symcount = bfd_canonicalize_dynamic_symtab(abfd, syms);
   else
