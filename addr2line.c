@@ -280,9 +280,9 @@ int main(int argc, char **argv)
 #ifdef HAVE_LC_MESSAGES
   setlocale(LC_MESSAGES, "");
 #endif
-  setlocale(LC_CTYPE, "");
-  bindtextdomain(PACKAGE, LOCALEDIR);
-  textdomain(PACKAGE);
+  // setlocale(LC_CTYPE, "");
+  // bindtextdomain(PACKAGE, LOCALEDIR);
+  // textdomain(PACKAGE);
 
   program_name = *argv;
   xmalloc_set_program_name(program_name);
