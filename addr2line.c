@@ -8,7 +8,7 @@
 
 
 /* Flags passed to the name demangler.  */
-static int demangle_flags = DMGL_PARAMS | DMGL_ANSI;
+// static int demangle_flags = DMGL_PARAMS | DMGL_ANSI;
 
 static int naddr;   /* Number of addresses to process.  */
 static char **addr; /* Hex addresses to process.  */
@@ -53,7 +53,7 @@ slurp_symtab(bfd *abfd)
   if (symcount == 0 && !dynamic && (storage = bfd_get_dynamic_symtab_upper_bound(abfd)) > 0)
   {
     free(syms);
-    syms = xmalloc(storage);
+    syms = malloc(storage);
     symcount = bfd_canonicalize_dynamic_symtab(abfd, syms);
   }
 
@@ -270,12 +270,11 @@ process_file(const char *file_name, const char *section_name,
   return 0;
 }
 
-int main(int argc, char **argv)
+int main(int argc,char **argv)
 {
   const char *file_name;
   const char *section_name;
   char *target;
-  int c;
 
 #ifdef HAVE_LC_MESSAGES
   setlocale(LC_MESSAGES, "");
@@ -300,7 +299,8 @@ int main(int argc, char **argv)
 
   if (file_name == NULL)
     file_name = "a.out";
-
+  addr=(char**)malloc(sizeof(char*));
+  addr[0]=(char*)malloc(sizeof(char)*8);
   addr[0] = "0400837";
   naddr = 1;
 
