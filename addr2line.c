@@ -1,5 +1,9 @@
 #include "addr2line.h"
 
+#ifdef _ADDR2LINE_TEST_
+#include <execinfo.h>
+#endif
+
 static void list_matching_formats(char **p)
 {
   fflush(stdout);
@@ -172,7 +176,7 @@ void file_bfd_close()
   bfd_close(abfd);
 }
 
-int traslate_address(const char* addr)
+unsigned int translate_address(const char* addr)
 {
   if(addr==NULL)
   {
@@ -190,30 +194,34 @@ int traslate_address(const char* addr)
   {
     return no_found;
   }
-  else
+
+  unsigned int result= nonsense;
+  if(filename!=NULL)
   {
-    if(filename==NULL)
-    {
-      return null_filename;
-    }
-    if(line==0)
-    {
-      return zero_line;
-    }
-    if(discriminator==0)
-    {
-      return zero_discriminator;
-    }
+    result = result | file_flag;
   }
-  return ok;
+  if(functionname!=NULL)
+  {
+    result = result | function_flag;
+  }
+  if(line!=0)
+  {
+    result = result | line_flag;
+  }
+  if(discriminator!=0)
+  {
+    result = result | discriminator_flag;
+  }
+  
+  return result;
 }
 
-char* get_file_name()
+const char* get_file_name()
 {
   return filename;
 }
 
-char* get_function_name()
+const char* get_function_name()
 {
   return functionname;
 }
@@ -229,6 +237,74 @@ unsigned int get_discriminator()
 }
 
 
+int get_this_file_name(char* file_name)
+{
+  int fd=-1;
+  int size=-1;
+  fd=open("/proc/self/comm",O_RDONLY);
+  if(fd==-1)
+  {
+    return -1;
+  }
+  size=read(fd,file_name,30);
+  close(fd);
+
+  if(size>0)
+  {
+    file_name[size-1]='\0';
+  }
+  return size;
+}
+
+
+
+
+#ifdef _ADDR2LINE_TEST_
+
+
 int main()
 {
+  if(file_bfd_open("bt",NULL)==error)
+  {
+    printf("bfd file open filed.");
+    return error;
+  }
+
+  unsigned int result=translate_address("0400837");
+  
+  if(result==error)
+  {
+    printf("error!\n");
+  }
+  else if(result==no_found)
+  {
+    printf("Can't find.\n");
+  }
+  else if(result==nonsense)
+  {
+    printf("Have found,but everything is null.So it's nonsense.");
+  }
+  else
+  {
+    if(result&file_flag)
+    {
+      printf("file name is %s\n",get_file_name());
+    }
+    if(result&function_flag)
+    {
+      printf("function name is %s\n",get_function_name());
+    }
+    if(result&line_flag)
+    {
+      printf("line is %u\n",get_line());
+    }
+    if(result&discriminator_flag)
+    {
+      printf("discriminator is %u\n",get_discriminator());
+    }
+    result=ok;
+  }
+  file_bfd_close();
+  return result;
 }
+#endif 
