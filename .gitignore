@@ -2,3 +2,6 @@
 .vscode/
 bt
 build/
+test
+*.a
+*.o
