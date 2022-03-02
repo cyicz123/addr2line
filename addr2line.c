@@ -266,7 +266,7 @@ int main()
 {
   if(file_bfd_open("bt",NULL)==error)
   {
-    printf("bfd file open filed.");
+    printf("bfd file open failed.");
     return error;
   }
 

@@ -13,9 +13,6 @@ void dump()
     void *buf[256] = {0};
     char **cbuf = NULL;
     char **addresses = NULL;
-    // char *program_name = NULL;
-    // char *file_name = NULL;
-    // int line[256] = {0};
 
     size = backtrace(buf, sizeof(buf) / (sizeof(void *)));
     if (!size)
