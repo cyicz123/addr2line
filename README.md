@@ -1,9 +1,67 @@
 # addr2line
 一个提取自linux addr2line命令的c语言库。能够将可执行文件16进制字符串型地址解析出对应文件名、函数名和源码行号。
 
-## 一、例程
+## 一、安装
+## 1. 依赖库安装
+### (1)bfd、iberty
+``` bash
+➜  wget https://ftp.gnu.org/gnu/binutils/binutils-2.38.tar.gz
+......
+
+➜  tar -zxvf binutils-2.38.tar.gz
+......
+
+➜  cd binutils-2.38 && mkdir build && cd build
+
+➜  ../configure
+......
+
+➜  sudo make
+......
+
+➜  sudo make install
+......
+
+➜  sudo cp libiberty/libiberty.a /usr/local/lib/
+
+➜  sudo cd .. && cp include/libiberty.h /usr/local/include/
+
+➜  sudo vim /usr/local/include/bfd.h
+```
+然后将以下三行注释掉
+``` c
+// #if !defined PACKAGE && !defined PACKAGE_VERSION
+// #error config.h must be included before this header
+// #endif
+```
+### (2)zlib
+``` bash
+➜  wget http://www.zlib.net/zlib-1.2.11.tar.gz
+......
+
+➜  tar -zxvf zlib-1.2.11.tar.gz
+......
+
+➜  Documents cd zlib-1.2.11 && mkdir build && cd build
+
+➜  ../configure
+......
+
+➜  sudo make
+......
+
+➜  sudo make install
+......
+
+```
+
+## 2. 编译
+
+## 二、例程
 一个在屏幕输出调用dump()函数的调用栈，以及对应的文件名、函数名和源码行号的程序。
 ``` c
+#include "addr2line.h"
+
 void dump()
 {
     int size = 0;
