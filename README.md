@@ -99,7 +99,7 @@ FuncC end.
 FuncB end.
 FuncA end.
 ```
-### 3. 调用此库
+## 3. 调用此库
 头文件引入`#include "addr2line.h"`
 编译选项引入库"-laddr2line -lbfd -liberty -dl -lz",且要带有"-g"
 
