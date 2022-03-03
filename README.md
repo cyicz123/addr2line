@@ -56,6 +56,49 @@
 ```
 
 ## 2. 编译
+``` bash
+➜  make 
+
+➜  sudo make install
+
+➜  make test # 编译测试代码
+
+➜  ./test #打印如下信息
+./test() [0x40301e]
+file name is /home/amricy/Documents/common_backtrace/addr2line/test.c
+function name is dump
+line is 17
+
+./test() [0x40338d]
+file name is /home/amricy/Documents/common_backtrace/addr2line/test.c
+function name is FuncC
+line is 120
+
+./test() [0x403362]
+file name is /home/amricy/Documents/common_backtrace/addr2line/test.c
+function name is FuncB
+line is 113
+
+./test() [0x40331c]
+file name is /home/amricy/Documents/common_backtrace/addr2line/test.c
+function name is FuncA
+line is 106
+
+./test() [0x4032f8]
+file name is /home/amricy/Documents/common_backtrace/addr2line/test.c
+function name is main
+line is 99
+
+/lib64/libc.so.6(__libc_start_main+0xf5) [0x7fb0a86f9555]
+Can't find the address.
+
+./test() [0x402f02]
+Can't find the address.
+
+FuncC end.
+FuncB end.
+FuncA end.
+```
 
 ## 二、例程
 一个在屏幕输出调用dump()函数的调用栈，以及对应的文件名、函数名和源码行号的程序。
