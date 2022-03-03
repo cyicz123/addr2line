@@ -101,10 +101,10 @@ FuncA end.
 ```
 ## 3. 调用此库
 头文件引入`#include "addr2line.h"`
-编译选项引入库"-laddr2line -lbfd -liberty -dl -lz",且要带有"-g"
+编译选项引入库`"-laddr2line -lbfd -liberty -dl -lz"`,且要带有`"-g"`
 
 ## 二、例程
-一个在屏幕输出调用dump()函数的调用栈，以及对应的文件名、函数名和源码行号的程序。
+一个在屏幕输出调用`dump()`函数的调用栈，以及对应的文件名、函数名和源码行号的程序。
 ``` c
 #include "addr2line.h"
 
