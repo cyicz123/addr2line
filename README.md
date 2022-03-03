@@ -101,21 +101,21 @@ const enum translate_address_result{no_found=0x10,nonsense=0x100,file_flag=0x100
 ```
 
 ## 三、可调用的函数
-### 1. file_bfd_open
+## 1. file_bfd_open
 ``` c
 int file_bfd_open(const char *file_name, const char *section_name) 
 ```
 **功能**
 
-* [x] 必需
+<input type="checkbox" checked="checked"> 必选
 
 初始化bfd
 
 **传入参数**
-| 参数名    | 类型       | 备注                     |
-| ------------ | ------------ | -------------------------- |
-| file_name    | const char * | 需要解析的可执行文件名 |
-| section_name | const char * | 需要解析的段名，一般为NULL |
+| 参数名    | 类型       |必选| 备注    |
+| ------------ | ------------ |----------| -------------------------- |
+| `file_name `   | `const char *`| <input type="checkbox" checked="checked"> | 需要解析的可执行文件名 |
+| `section_name` | `const char * `| <input type="checkbox" > | 需要解析的段名，一般为NULL |
 
 **传出参数**
 
@@ -133,30 +133,30 @@ if(file_bfd_open("bt",NULL)==error)
 ```
 
 
-### 2. file_bfd_close
+## 2. file_bfd_close
 ``` c
 void file_bfd_close() 
 ```
 **功能**
 
-* [x] 必需
+<input type="checkbox" checked="checked"> 必选
 
 用了`file_bfd_open`成功后，则必须使用`file_bfd_close`
 
-### 3. get_this_file_name
+## 3. get_this_file_name
 ``` c
 int get_this_file_name(char* file_name);
 ```
 **功能**
 
-* [ ] 可选
+<input type="checkbox" > 可选
 
 获取当前进程的名称
 
 **传入参数**
-| 参数名    | 类型       | 备注                     |
-| ------------ | ------------ | -------------------------- |
-| file_name    | char * | 需要获取当前进程的名称 |
+| 参数名    | 类型       |必选| 备注                     |
+| ------------ | ------------|--- | -------------------------- |
+| `file_name`    | `char * `|<input type="checkbox" checked="checked">| 存储获取当前进程的名称的变量 |
 
 **传出参数**
 
@@ -175,20 +175,20 @@ free(file_name)//记得free
 ```
 
 
-### 4. translate_address
+## 4. translate_address
 ``` c
 unsigned int translate_address(const char* addr);
 ```
 **功能**
 
-* [x] 必需
+<input type="checkbox" checked="checked"> 必选
 
 将传入的地址，解析出需要的一些信息。
 
 **传入参数**
-| 参数名    | 类型       | 备注                     |
-| ------------ | ------------ | -------------------------- |
-| addr    | const char * | 需要解析的地址 |
+| 参数名    | 类型       |必选| 备注                     |
+| ------------ | ------------|--- | -------------------------- |
+| `addr`    | `const char *` |<input type="checkbox" checked="checked">| 需要解析的地址 |
 
 **传出参数**
 
@@ -232,4 +232,102 @@ else
     }
     result=ok;
 }
+```
+
+## 5. get_file_name
+``` c
+const char* get_file_name();
+```
+**功能**
+
+<input type="checkbox" > 可选
+
+获得`trasnlate_address`解析的地址对应的源文件名
+
+**传出参数**
+
+| 类型       | 备注                     |
+| ------------ | -------------------------- |
+| `const char *` | `trasnlate_address`解析的地址对应的源文件名 |
+
+**例程**
+``` c
+if(result&file_flag)
+{
+    printf("file name is %s\n",get_file_name());
+}
+//result为translate_address传出的unsigned int变量
+```
+## 6. get_function_name
+``` c
+const char* get_function_name();
+```
+**功能**
+
+<input type="checkbox" > 可选
+
+`trasnlate_address`解析的地址对应的函数名
+
+**传出参数**
+
+| 类型       | 备注                     |
+| ------------ | -------------------------- |
+| `const char *` | `trasnlate_address`解析的地址对应的函数名 |
+
+**例程**
+``` c
+if(result&function_flag)
+{
+    printf("function name is %s\n",get_function_name());
+}
+//result为translate_address传出的unsigned int变量
+```
+## 7. get_line
+``` c
+unsigned int get_line();
+```
+**功能**
+
+<input type="checkbox" > 可选
+
+`trasnlate_address`解析的地址对应的行号
+
+**传出参数**
+
+| 类型       | 备注                     |
+| ------------ | -------------------------- |
+| `unsigned int` | `trasnlate_address`解析的地址对应的行号|
+
+**例程**
+``` c
+if(result&line_flag)
+{
+    printf("line is %u\n",get_line());
+}
+//result为translate_address传出的unsigned int变量
+```
+
+## 8. get_discriminator
+``` c
+unsigned int get_discriminator();
+```
+**功能**
+
+<input type="checkbox" > 可选
+
+addr2line命令里含有的，暂不明白作用
+
+**传出参数**
+
+| 类型       | 备注                     |
+| ------------ | -------------------------- |
+| `unsigned int` | `trasnlate_address`解析的地址对应的discriminator|
+
+**例程**
+``` c
+if(result&discriminator_flag)
+{
+    printf("discriminator is %u\n",get_discriminator());
+}
+//result为translate_address传出的unsigned int变量
 ```
